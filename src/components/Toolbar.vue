@@ -1,28 +1,30 @@
 <template>
   <div>
     <v-toolbar dense>
-      <v-toolbar-items dense>
-        <add-host/>
-      </v-toolbar-items>
+      <add-edit-btn :data="null" :name="'Добавить'"/>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
+      <v-toolbar-items id="search">
         <v-text-field
-          hide-details
-          prepend-icon="search"
           single-line
-        ></v-text-field>
+          label="search"
+          prepend-icon="search"
+        >
+        </v-text-field>
       </v-toolbar-items>
     </v-toolbar>
   </div>
 </template>
 
 <script>
-import addHost from './AddHost.vue';
+import {mapState} from 'vuex';
+import AddEditBtn from './Btn/AddEditBtn.vue';
 
 export default {
   components: {
-    addHost,
-  }
+    AddEditBtn,
+  },
+  computed: mapState(['listItem']),
+
 }
 </script>
 
