@@ -4,6 +4,10 @@
 ```
 npm install
 ```
+```
+cd backend
+composer install
+```
 
 ### Compiles and hot-reloads for development
 ```
