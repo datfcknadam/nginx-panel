@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar dense>
-      <add-edit-btn :data="null" :name="'Добавить'"/>
+      <add-edit-btn :data="''" :name="'Добавить'"/>
       <v-spacer></v-spacer>
       <v-toolbar-items id="search">
         <v-text-field

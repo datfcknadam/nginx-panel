@@ -12,44 +12,49 @@
       <v-card-title>
         <span class="headline title">{{name}} виртуальный хост с перенаправлением</span>
       </v-card-title>
-      <v-divider class="mx-2" />
+      <v-divider class="mx-2"/>
       <v-card-text>
         <v-container>
           <v-row>
             <v-col cols="12" sm="10" md="6">
-              <v-text-field v-model="host" outlined label="Виртуальный хост" required />
+              <v-text-field outlined label="Виртуальный хост" required v-model="data"/>
             </v-col>
             <v-col cols="12" sm="6" md="6">
-              <v-text-field outlined label="Описание" />
+              <v-text-field outlined label="Описание" :value="data"/>
             </v-col>
             <v-col cols="12">
-              <v-divider />
+              <v-divider/>
             </v-col>
             <v-col cols="12">
               <v-radio-group v-model="radioGroup">
-                <v-radio label="Перенаправлять HTTP на адрес" />
-                <v-radio label="Перенаправлять HTTP на HTTPS" />
+                <v-radio label="Перенаправлять HTTP на адрес"/>
+                <v-radio label="Перенаправлять HTTP на HTTPS"/>
               </v-radio-group>
             </v-col>
-            <v-select :items="selectProp" v-model="selectHTTP" filled />
+            <v-select
+              filled
+              v-model="selectHTTP"
+              :items="selectProp"
+              :disabled="radioGroup === 0 ? false : true"
+            />
             <v-text-field
               label="Перенаправлять HTTP на адрес"
               outlined
-              :value="selectHTTP"
+              :value="selectHTTP + data"
               :disabled="radioGroup === 0 ? false : true"
             />
             <v-col cols="12">
-              <v-divider />
+              <v-divider/>
             </v-col>
-            <v-select :items="selectProp" v-model="selectHTTPS" filled />
+            <v-select :items="selectProp" v-model="selectHTTPS" filled/>
             <v-text-field
               outlined
               label="Перенаправлять HTTPS на адрес"
               required
-              :value="selectHTTPS"
+              :value="selectHTTPS + data"
             />
             <v-col cols="12">
-              <v-divider />
+              <v-divider/>
             </v-col>
             <v-col cols="12">
               <v-checkbox
@@ -57,7 +62,7 @@
                 :input-value="checkDomain ? false: null"
                 :disabled="checkDomain ? true : false"
               />
-              <v-checkbox label="Разрешать использование WebSocket" />
+              <v-checkbox label="Разрешать использование WebSocket"/>
             </v-col>
           </v-row>
         </v-container>
@@ -74,7 +79,6 @@
 export default {
   data() {
     return {
-      host: "",
       description: "",
       radioGroup: 0,
       dialog: false,
@@ -88,7 +92,7 @@ export default {
       type: String
     },
     data: {
-      type: Number
+      type: String
     },
     identificator: {
       type: Number
@@ -96,12 +100,12 @@ export default {
   },
   computed: {
     checkDomain() {
-      if (this.host.toLowerCase().indexOf("*") !== -1) {
+      if (this.data.toLowerCase().indexOf("*") !== -1) {
         return true;
       }
       return false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

@@ -2,20 +2,20 @@
   <div id="app">
     <v-app id="inspire">
       <toolbar/>
-      <list-host/>
+      <host-list/>
     </v-app>
   </div>
 </template>
 
 <script>
 import Toolbar from './components/Toolbar.vue';
-import ListHost from './components/ListHost.vue';
+import HostList from './components/HostList.vue';
 
 export default {
   name: 'App',
   components: {
     Toolbar,
-    ListHost,
+    HostList,
   },
   data: () => ({
     //
