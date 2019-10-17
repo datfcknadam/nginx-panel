@@ -1,0 +1,14 @@
+["c20.arealidea.ru"] # ключом является имя файла
+["c20.arealidea.ru".inuse]
+host = ".c20.arealidea.ru"
+brief = "Все хосты на c20"
+httpTarget = ''
+httpForceHttps = true
+httpsTarget = "192.168.1.111"
+enableLetsencrypt = false
+enableWebsockets = true
+_mtime = 2019-08-29T20:44:25.192031Z
+["c20.arealidea.ru".latest]
+status = []
+mtime = 2019-08-29T20:44:25.192031Z
+

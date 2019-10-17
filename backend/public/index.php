@@ -16,13 +16,17 @@ $app = AppFactory::create();
 $app->addErrorMiddleware(true, false, false);
 
 // Add route callbacks
-$app->get('/', function (Request $request, Response $response, array $args) {
-  $toml = new TomlFile();
-  $array = $toml->outputTree(__DIR__.'/toml');
-  $array = json_encode($array);
+$app->get('/', function (Request $request, Response $response) {
 
+  $array = TomlFile::searchFile(__DIR__.'/host');
+  $array = json_encode($array);
   $response->getBody()->write($array);
   return $response;
+});
+$app->get('/create', function (Request $request, Response $response, array $args) {
+  $object = $request->getMethod();
+  TomlFile::createFile($object);
+  $response->getBody()->write($object);
 });
 
 // Run application

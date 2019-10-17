@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar dense>
-      <add-edit-btn :data="''" :name="'Добавить'"/>
+      <add-btn/>
       <v-spacer></v-spacer>
       <v-toolbar-items id="search">
         <v-text-field
@@ -17,11 +17,11 @@
 
 <script>
 import {mapState} from 'vuex';
-import AddEditBtn from './Btn/AddEditBtn.vue';
+import AddBtn from './Btn/AddBtn.vue';
 
 export default {
   components: {
-    AddEditBtn,
+    AddBtn,
   },
   computed: mapState(['listItem']),
 

@@ -1,26 +1,27 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px">
+  <v-dialog v-model="dialog" persistent max-width="650px">
     <template v-slot:activator="{ on }">
       <v-btn
-        :color="name === 'Добавить'? 'primary' : 'grey lighten-4'"
-        :dark="name === 'Добавить'? true : false"
-        v-text="name"
+        v-text="'Редактировать'"
         v-on="on"
       />
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline title">{{name}} виртуальный хост с перенаправлением</span>
+        <span class="headline title">Редактирование виртуального хоста с перенаправлением</span>
       </v-card-title>
       <v-divider class="mx-2"/>
       <v-card-text>
         <v-container>
           <v-row>
             <v-col cols="12" sm="10" md="6">
-              <v-text-field outlined label="Виртуальный хост" required v-model="data"/>
+              <v-text-field outlined label="Виртуальный хост"
+                v-model="data.inuse.host"
+                required
+              />
             </v-col>
             <v-col cols="12" sm="6" md="6">
-              <v-text-field outlined label="Описание" :value="data"/>
+              <v-text-field outlined label="Описание" v-model="data.inuse.brief"/>
             </v-col>
             <v-col cols="12">
               <v-divider/>
@@ -40,7 +41,7 @@
             <v-text-field
               label="Перенаправлять HTTP на адрес"
               outlined
-              :value="selectHTTP + data"
+              v-model="data.inuse.httpTarget"
               :disabled="radioGroup === 0 ? false : true"
             />
             <v-col cols="12">
@@ -51,7 +52,7 @@
               outlined
               label="Перенаправлять HTTPS на адрес"
               required
-              :value="selectHTTPS + data"
+              v-model="data.inuse.httpsTarget"
             />
             <v-col cols="12">
               <v-divider/>
@@ -59,10 +60,12 @@
             <v-col cols="12">
               <v-checkbox
                 label="Использовать сертификат LetsEnctrypt"
-                :input-value="checkDomain ? false: null"
+                :input-value="checkDomain ? false: data.inuse.enableLetsencrypt"
                 :disabled="checkDomain ? true : false"
               />
-              <v-checkbox label="Разрешать использование WebSocket"/>
+              <v-checkbox label="Разрешать использование WebSocket"
+                :input-value="data.inuse.enableWebsockets"
+              />
             </v-col>
           </v-row>
         </v-container>
@@ -79,7 +82,6 @@
 export default {
   data() {
     return {
-      description: "",
       radioGroup: 0,
       dialog: false,
       selectProp: ["http://", "https://"],
@@ -92,7 +94,7 @@ export default {
       type: String
     },
     data: {
-      type: String
+      type: Object
     },
     identificator: {
       type: Number
@@ -100,11 +102,16 @@ export default {
   },
   computed: {
     checkDomain() {
-      if (this.data.toLowerCase().indexOf("*") !== -1) {
+      if (this.data.inuse.host.toLowerCase().indexOf("*") !== -1) {
         return true;
       }
       return false;
     },
+  },
+  mounted() {
+    if(!this.data.inuse.httpTarget){
+      this.radioGroup = 1;
+    }
   },
 };
 </script>

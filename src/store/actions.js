@@ -8,4 +8,11 @@ export default {
       // eslint-disable-next-line no-console
       }).catch(error => console.log(error.response));
   },
+  createHost(commit, value){
+    axios
+    .post('http://localhost:8888/create', value)
+    .then((response) => {
+      commit("SET_STATUS_CREATE", response.data);
+    }).catch(error => console.log(error.response));
+    },
 }
