@@ -21,7 +21,6 @@ class TomlFile {
 
   function createFile($object) {
     $tb = new TomlBuilder();
-    var_dump($object);
     $filename = $object->host;
 
     if (strripos($filename, "*")) {

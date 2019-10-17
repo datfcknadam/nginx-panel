@@ -26,6 +26,7 @@ $app->get('/', function (Request $request, Response $response) {
 $app->post('/create', function (Request $request, Response $response, array $args) {
 
   $request_data = $request->getParsedBody();
+  $request_data = json_decode($request_data);
   TomlFile::createFile($request_data);
   $response->getBody()->write($request_data);
   
