@@ -23,10 +23,12 @@ $app->get('/', function (Request $request, Response $response) {
   $response->getBody()->write($array);
   return $response;
 });
-$app->get('/create', function (Request $request, Response $response, array $args) {
-  $object = $request->getMethod();
-  TomlFile::createFile($object);
-  $response->getBody()->write($object);
+$app->post('/create', function (Request $request, Response $response, array $args) {
+
+  $request_data = $request->getParsedBody();
+  TomlFile::createFile($request_data);
+  $response->getBody()->write($request_data);
+  
 });
 
 // Run application
